@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#263b45">
+<title>7 Surprises ♥</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Georgia,"Times New Roman",serif}
+body{color:#18313b;background:radial-gradient(circle at 15% 8%,rgba(255,190,151,.9),transparent 30%),radial-gradient(circle at 90% 25%,rgba(217,173,146,.45),transparent 30%),linear-gradient(155deg,#e9a17f 0%,#756a70 45%,#233e4b 100%);background-attachment:fixed}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.13;background:repeating-linear-gradient(0deg,rgba(255,255,255,.3) 0 1px,transparent 1px 4px)}
+.app{width:min(540px,100%);min-height:100vh;margin:auto;padding:22px 16px 35px}.heart{font-size:23px}
+header{text-align:center;color:#fff;text-shadow:0 2px 3px rgba(0,0,0,.35);margin:5px 0 24px}
+h1{font-size:43px;font-weight:400;font-style:italic;margin:6px 0}.subtitle{font-size:17px;font-style:italic;line-height:1.45}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;max-width:450px;margin:auto}
+.card{aspect-ratio:1;border-radius:15px;border:1px solid rgba(255,255,255,.75);background:linear-gradient(145deg,rgba(250,241,222,.97),rgba(190,161,128,.84));box-shadow:0 8px 20px rgba(0,0,0,.28),inset 0 0 0 2px rgba(255,255,255,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;position:relative;overflow:hidden}
+.card:before{content:"";position:absolute;inset:7px;border:1px solid rgba(120,91,68,.25);border-radius:11px}.card.locked{filter:brightness(.58) saturate(.3);cursor:not-allowed}.card:not(.locked):active{transform:scale(.95)}
+.icon{font-size:27px;z-index:1;margin-bottom:7px}.day{font-size:18px;z-index:1}.small{font-size:12px;font-style:italic;margin-top:4px;z-index:1}
+footer{text-align:center;color:#fff;font-style:italic;line-height:1.6;margin:27px 0 0;text-shadow:0 2px 3px rgba(0,0,0,.35)}
+.modal{display:none;position:fixed;inset:0;z-index:20;padding:18px;background:rgba(12,25,31,.76);overflow:auto}.modal.show{display:flex;align-items:center;justify-content:center}
+.paper{width:min(490px,100%);max-height:91vh;overflow:auto;padding:30px 24px;border-radius:16px;text-align:center;background:linear-gradient(145deg,#fbf1df,#ead8ba);box-shadow:0 20px 55px rgba(0,0,0,.48);animation:appear .28s ease}
+@keyframes appear{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}.orn{font-size:26px;margin-bottom:8px}.paper h2{font-size:30px;font-weight:400;font-style:italic;margin:4px 0 20px}.paper p{font-size:19px;line-height:1.65;margin:0}.signature{font-size:25px;font-style:italic;margin:21px 0 3px}
+button{width:100%;max-width:330px;margin:20px auto 0;padding:13px 18px;border:0;border-radius:28px;background:#9d4339;color:#fff;font:inherit;font-size:17px;cursor:pointer}button.secondary{background:transparent;color:#18313b;border:1px solid rgba(24,49,59,.35)}
+@media(max-width:370px){h1{font-size:37px}.grid{gap:9px}.day{font-size:16px}.paper p{font-size:17px}}
+</style>
+</head>
+<body>
+<main class="app">
+<header><div class="heart">♥</div><h1>7 Surprises</h1><div class="heart">— ♥ —</div><div class="subtitle">7 jours pour te faire sourire…</div></header>
+<section class="grid" id="grid"></section>
+<footer>— ♥ —<br>Chaque jour une nouvelle surprise…</footer>
+</main>
+<div class="modal" id="modal"><div class="paper" id="paper"></div></div>
+<script>
+const START_DATE="2026-09-21";
+const surprises=[
+{icon:"🎁",title:"Jour 1",heading:"Un petit trésor t'attend…",text:"La première surprise est un cadeau caché.<br><br>Il se trouve derrière les casquettes et les chapeaux, dans la chambre bleue…<br><br>À toi de jouer ! ♥",signature:"Bonne chance… ♥"},
+{icon:"♥",title:"Jour 2",heading:"Bon pour 1h30 de massage",text:"Pour prendre soin de toi, 1h30 de massage sera parfait ❤",signature:"♥"},
+{icon:"🍿",title:"Jour 3",heading:"Notre soirée à deux",text:"Tu as gagnée une soirée avec recette de ton choix et film de ton choix ❤",signature:"♥"},
+{icon:"🎁",title:"Jour 4",heading:"Un autre petit trésor…",text:"Un cadeau est est pas loin de jeux vidéos dans un meuble TV ❤",signature:"À toi de jouer… ♥"},
+{icon:"🛍️",title:"Jour 5",heading:"Un cadeau… mais à deux",text:"Tu as gagnée un bon pour faire un achat en DUO dans un magasin. Mais cette fois ci, ce sera pour lui ❤",signature:"♥"},
+{icon:"🎁",title:"Jour 6",heading:"Le dernier cadeau caché…",text:"Un dernier cadeau au couvercle doré est caché tout près du Cristal ❤ celui là est pour te rappeler que tu es la femme la plus canon du monde ! ❤",signature:"♥"},
+{icon:"♥",title:"Jour 7",heading:"Pour ton dernier jour…",text:"Tu as le choix pour ton dernier jour. Soit un secret de longue date lié à YouTube, soit le cadeau de ton choix quand tu veux et où tu veux ❤",signature:"♥"}];
+function dateOnly(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
+function daysAvailable(){return Math.floor((dateOnly(new Date())-dateOnly(new Date(START_DATE+"T12:00:00")))/86400000)+1}
+function render(){const g=document.getElementById("grid");g.innerHTML="";surprises.forEach((s,i)=>{const day=i+1,u=daysAvailable()>=day,c=document.createElement("div");c.className="card"+(u?"":" locked");c.innerHTML='<div class="icon">'+(u?s.icon:"🔒")+'</div><div class="day">'+s.title+'</div><div class="small">'+(u?"Découvrir":"Encore un peu…")+'</div>';if(u)c.onclick=()=>openSurprise(day);g.appendChild(c)})}
+function openSurprise(day){const s=surprises[day-1];document.getElementById("paper").innerHTML='<div class="orn">'+s.icon+'</div><h2>'+s.heading+'</h2><p>'+s.text+'</p><div class="signature">'+s.signature+'</div><button class="secondary" onclick="closeModal()">Fermer</button>';document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+document.getElementById("modal").onclick=e=>{if(e.target.id==="modal")closeModal()};render();
+</script>
+</body>
+</html>
